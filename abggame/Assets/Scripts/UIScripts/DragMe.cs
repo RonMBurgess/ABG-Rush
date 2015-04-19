@@ -10,21 +10,21 @@ public class DragMe : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHa
 	private GameObject m_DraggingIcon;
 	private RectTransform m_DraggingPlane;
 
-	public void OnBeginDrag(PointerEventData eventData)
-	{
-		var canvas = FindInParents<Canvas>(gameObject);
-		if (canvas == null)
-			return;
+    public void OnBeginDrag(PointerEventData eventData)
+    {
+        var canvas = FindInParents<Canvas>(gameObject);
+        if (canvas == null)
+            return;
 
-		// We have clicked something that can be dragged.
-		// What we want to do is create an icon for this.
+        // We have clicked something that can be dragged.
+        // What we want to do is create an icon for this.
         m_DraggingIcon = Instantiate(gameObject);
-		////m_DraggingIcon = new GameObject("icon");
+        ////m_DraggingIcon = new GameObject("icon");
 
-		m_DraggingIcon.transform.SetParent (canvas.transform, false);
-		m_DraggingIcon.transform.SetAsLastSibling();
-		
-		////var image = m_DraggingIcon.AddComponent<Image>();
+        m_DraggingIcon.transform.SetParent(canvas.transform, false);
+        m_DraggingIcon.transform.SetAsLastSibling();
+
+        ////var image = m_DraggingIcon.AddComponent<Image>();
         //match the color of the previous object
         ////image.color = GetComponent<Image>().color;
 
@@ -38,24 +38,24 @@ public class DragMe : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHa
         //End Ron
 
 
-		// The icon will be under the cursor.
-		// We want it to be ignored by the event system.
-		CanvasGroup group = m_DraggingIcon.AddComponent<CanvasGroup>();
-		group.blocksRaycasts = false;
+        // The icon will be under the cursor.
+        // We want it to be ignored by the event system.
+        CanvasGroup group = m_DraggingIcon.AddComponent<CanvasGroup>();
+        group.blocksRaycasts = false;
 
-		////image.sprite = GetComponent<Image>().sprite;
+        ////image.sprite = GetComponent<Image>().sprite;
         //Debug.Log("Before setting native size " + image.gameObject.GetComponent<RectTransform>().sizeDelta);
 
         //image.SetNativeSize();
         //Debug.Log("After setting native size " + image.gameObject.GetComponent<RectTransform>().sizeDelta);
-		
-		if (dragOnSurfaces)
-			m_DraggingPlane = transform as RectTransform;
-		else
-			m_DraggingPlane = canvas.transform as RectTransform;
-		
-		SetDraggedPosition(eventData);
-	}
+
+        if (dragOnSurfaces)
+            m_DraggingPlane = transform as RectTransform;
+        else
+            m_DraggingPlane = canvas.transform as RectTransform;
+
+        SetDraggedPosition(eventData);
+    }
 
 	public void OnDrag(PointerEventData data)
 	{
@@ -99,4 +99,60 @@ public class DragMe : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHa
 		}
 		return comp;
 	}
+
+
+
+    //Rons new version of Dragme begins here
+
+    //private RectTransform parentRect;
+
+
+    //public void OnBeginDrag(PointerEventData eventData)
+    //{
+    //    Debug.Log("Begin Drag");
+    //    var canvas = FindInParents<Canvas>(gameObject);
+    //    if (canvas == null)
+    //        return;
+
+    //    // We have clicked something that can be dragged.
+    //    // What we want to do is create an icon for this.
+    //    m_DraggingIcon = gameObject;//Instantiate(gameObject);
+    //    ////m_DraggingIcon = new GameObject("icon");
+
+    //    m_DraggingIcon.transform.SetParent(canvas.transform, false);
+    //    m_DraggingIcon.transform.SetAsLastSibling();
+
+    //    ////var image = m_DraggingIcon.AddComponent<Image>();
+    //    //match the color of the previous object
+    //    ////image.color = GetComponent<Image>().color;
+
+    //    //Added by ron. Change this later
+    //    ////Debug.Log("Image Type: " + image.type);
+    //    ////Vector2 curSize = gameObject.GetComponent<RectTransform>().sizeDelta;
+    //    ////Debug.Log(curSize);
+    //    ////image.gameObject.GetComponent<RectTransform>().sizeDelta = curSize;
+    //    ////Debug.Log(image.gameObject.GetComponent<RectTransform>().sizeDelta);
+
+    //    //End Ron
+
+
+    //    // The icon will be under the cursor.
+    //    // We want it to be ignored by the event system.
+    //    CanvasGroup group = m_DraggingIcon.AddComponent<CanvasGroup>();
+    //    group.blocksRaycasts = false;
+
+    //    ////image.sprite = GetComponent<Image>().sprite;
+    //    //Debug.Log("Before setting native size " + image.gameObject.GetComponent<RectTransform>().sizeDelta);
+
+    //    //image.SetNativeSize();
+    //    //Debug.Log("After setting native size " + image.gameObject.GetComponent<RectTransform>().sizeDelta);
+
+    //    if (dragOnSurfaces)
+    //        m_DraggingPlane = transform as RectTransform;
+    //    else
+    //        m_DraggingPlane = canvas.transform as RectTransform;
+
+    //    SetDraggedPosition(eventData);
+    //}
+    
 }
