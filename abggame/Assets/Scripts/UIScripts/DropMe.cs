@@ -92,11 +92,11 @@ public class DropMe : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPointe
                     //do nothing since the dropped object is the same.
                     return;
                 }
-                else
+                else if(curChild != n)
                 {
                     //destroy the child
-                    Destroy(curChild);
-
+                    manager.DestroyChild(curChild);
+                    curChild = null;
 
                 }
                 

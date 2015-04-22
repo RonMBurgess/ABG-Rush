@@ -46,22 +46,30 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\NotificationManagerScript.cs" />
-     <Compile Include="Assets\SatisfactionBarScript.cs" />
-     <Compile Include="Assets\SatisfactionBoostTextScript.cs" />
+     <Compile Include="Assets\Scripts\PatientWalkScript.cs" />
+     <Compile Include="Assets\Scripts\Symptoms.cs" />
      <Compile Include="Assets\Scripts\UIScripts\ABGToolManagerScript.cs" />
      <Compile Include="Assets\Scripts\UIScripts\ABGToolSliderScript.cs" />
      <Compile Include="Assets\Scripts\UIScripts\ABGWW_Help_Script.cs" />
      <Compile Include="Assets\Scripts\UIScripts\DragAndDropManagerScript.cs" />
      <Compile Include="Assets\Scripts\UIScripts\DragMe.cs" />
      <Compile Include="Assets\Scripts\UIScripts\DropMe.cs" />
+     <Compile Include="Assets\Scripts\UIScripts\GameplayUIScript.cs" />
      <Compile Include="Assets\Scripts\UIScripts\MainMenuUIScript.cs" />
+     <Compile Include="Assets\Scripts\UIScripts\MeetAndGreetScript.cs" />
+     <Compile Include="Assets\Scripts\UIScripts\NotificationManagerScript.cs" />
      <Compile Include="Assets\Scripts\UIScripts\PlaceHolderNavScript.cs" />
+     <Compile Include="Assets\Scripts\UIScripts\SatisfactionBarScript.cs" />
+     <Compile Include="Assets\Scripts\UIScripts\SatisfactionBoostTextScript.cs" />
+     <Compile Include="Assets\Scripts\WalkScript.cs" />
      <Compile Include="Assets\Scripts\boardLogic.cs" />
      <Compile Include="Assets\Scripts\language.cs" />
+     <Compile Include="Assets\Scripts\move.cs" />
+     <Compile Include="Assets\Scripts\patientSpawn.cs" />
      <Compile Include="Assets\Scripts\playerBasic.cs" />
      <Compile Include="Assets\Scripts\quickChecker.cs" />
      <Compile Include="Assets\Scripts\sliderScript.cs" />
+     <Compile Include="Assets\Scripts\spawner.cs" />
      <Compile Include="Assets\Scripts\startButton.cs" />
      <Compile Include="Assets\Scripts\text.cs" />
      <Compile Include="Assets\Scripts\textConverterScript.cs" />

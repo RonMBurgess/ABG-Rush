@@ -1,0 +1,132 @@
+fileFormatVersion: 2
+guid: 23d698a28898c3a48ac277169b49bd7f
+timeCreated: 1429654730
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: febody
+    21300002: leg1
+    21300004: leg2
+    21300006: leftarm1
+    21300008: rightarm1
+    21300010: leftarm2
+    21300012: rightarm2
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: .25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 8
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 1024
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: .5, y: .5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: febody
+      rect:
+        serializedVersion: 2
+        x: 86
+        y: 401
+        width: 168
+        height: 378
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: leg1
+      rect:
+        serializedVersion: 2
+        x: 347
+        y: 522
+        width: 80
+        height: 126
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: leg2
+      rect:
+        serializedVersion: 2
+        x: 513
+        y: 529
+        width: 82
+        height: 114
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: leftarm1
+      rect:
+        serializedVersion: 2
+        x: 86
+        y: 227
+        width: 31
+        height: 91
+      alignment: 9
+      pivot: {x: .479999989, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: rightarm1
+      rect:
+        serializedVersion: 2
+        x: 217
+        y: 233
+        width: 26
+        height: 91
+      alignment: 9
+      pivot: {x: .560000002, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: leftarm2
+      rect:
+        serializedVersion: 2
+        x: 396
+        y: 238
+        width: 60
+        height: 87
+      alignment: 9
+      pivot: {x: .200000003, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: rightarm2
+      rect:
+        serializedVersion: 2
+        x: 490
+        y: 237
+        width: 60
+        height: 87
+      alignment: 9
+      pivot: {x: .779999971, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

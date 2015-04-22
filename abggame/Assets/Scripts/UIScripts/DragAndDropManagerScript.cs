@@ -33,29 +33,52 @@ public class DragAndDropManagerScript : MonoBehaviour {
         //scan the list for a GO that matches.
         //the objects being sent here are all cloned, so they will have the same name if they are indeed the same.
 
+        List<GameObject> tobeDeleted = new List<GameObject>();
+
         if (droppedObjects.Count > 0)
         {
             foreach (GameObject o in droppedObjects)
             {
                 //compare names.
-                if (o.name == d.name)
+                if (/*o.name == d.name*/ o.name.Contains(d.name.Substring(0,3)))
                 {
                     //if the names match
+                    tobeDeleted.Add(o);
                     
-                    //remove from the list.
-                    droppedObjects.Remove(o);
-
                     //destroy the old
-                    Destroy(o);
+                    //Destroy(o);
 
                     //get out of the forloop to prevent wrongly altering the list.
-                    break;
+                    //break;
                 }
+            }
+
+            if (tobeDeleted.Count > 0)
+            {
+                foreach (GameObject tbd in tobeDeleted)
+                {
+                    //remove from the list.
+                    droppedObjects.Remove(tbd);
+                    Destroy(tbd);
+
+                }
+                
             }
         }
 
+        Destroy(d.GetComponent<DragMe>());
+
         //add the newly dropepd object to the list
         droppedObjects.Add(d);
+    }
+
+    /// <summary>
+    /// destroy a specific child object.
+    /// </summary>
+    public void DestroyChild(GameObject c)
+    {
+        droppedObjects.Remove(c);
+        Destroy(c);
     }
 
     public void ResetTable()
