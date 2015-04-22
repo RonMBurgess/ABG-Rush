@@ -14,7 +14,7 @@ public class ABGToolManagerScript : MonoBehaviour {
     public Text value_TextpH, value_TextCO2, value_TextHCO3, textplayer_RespiratoryMetabolic, textplayer_AcidosisAlkalosis, textplayer_Compensation, textanswer_RespiratoryMetabolic, textanswer_AcidosisAlkalosis, textanswer_Compensation;
     public Image imganswer_RespiratoryMetabolic, imganswer_AcidosisAlkalosis, imganswer_Compensation;// each of the images will change their color 
     public DragAndDropManagerScript tic_tac_toe_Table;
-    public GameObject helpPanel;
+    public GameObject helpPanel, backPanel;
     public List<ABGToolSliderScript> helpSliders;
 
     private string resetText_RespiratoryMetabolic, resetText_AcidosisAlkalosis, resetText_Compensation;
@@ -22,6 +22,8 @@ public class ABGToolManagerScript : MonoBehaviour {
     private List<Text> textAnswers;//all of the answer texts
     private List<Image> imageAnswers;//all of the answer images
     private bool ready = false;
+
+    private int correctAnswers = 0;//how much of the diagnosis was correct? 0 = none, 1 = 1, and 3 = all 3.
 
 	// Use this for initialization
 	void Start () {
@@ -66,6 +68,7 @@ public class ABGToolManagerScript : MonoBehaviour {
 	
 	}
 
+    #region called by UI
     public void Choose_RespiratoryMetabolic(Text t)
     {
         //set the text of the player's answer.
@@ -83,7 +86,33 @@ public class ABGToolManagerScript : MonoBehaviour {
         //set the text of the player's answer.
         textplayer_Compensation.text = t.text;
     }
+    #endregion
 
+
+    /// <summary>
+    /// called from the manager to setup the playmode values.
+    /// </summary>
+    /// <param name="p">PH value</param>
+    /// <param name="co">CO2 value</param>
+    /// <param name="hco">HCO3 value</param>
+    /// <param name="respmet">Respiratory or Metabolic</param>
+    /// <param name="acidalk">Acidosis or Alkalosis</param>
+    /// <param name="comp">Uncompensated, Partial Compensation or Compensated</param>
+    public void PlayModeSetup(float p, float co, float hco, string respmet, string acidalk, string comp)
+    {
+        //backPanel.SetActive(true);
+        ph = p; co2 = co; hco3 = hco;
+        answerRespMet = respmet;
+        answerAcidAlk = acidalk;
+        answerCompensation = comp;
+        //set it to false just incase
+        practiceMode = false;
+    }
+
+
+    /// <summary>
+    /// called by the UI or the manager
+    /// </summary>
     public void Reset()
     {
         if (!ready)
@@ -121,25 +150,37 @@ public class ABGToolManagerScript : MonoBehaviour {
 
             Debug.Log("Answers for each are currently set to: \n " + answerRespMet + "\n" + answerAcidAlk + "\n" + answerCompensation);
 
-            //set the data for the values of ph, co2, and hco3.
-            value_TextCO2.text = co2.ToString("F2");
-            value_TextHCO3.text = hco3.ToString("F2");
-            value_TextpH.text = ph.ToString("F2");
+            ////set the data for the values of ph, co2, and hco3.
+            //value_TextCO2.text = co2.ToString("F2");
+            //value_TextHCO3.text = hco3.ToString("F2");
+            //value_TextpH.text = ph.ToString("F2");
+
+            //reset the sliders
+            foreach (ABGToolSliderScript s in helpSliders)
+            {
+                if (s != null)
+                {
+                    s.Reset();
+                }
+
+            }
         }
         
+        //set the data for the values of ph, co2, and hco3.
+        value_TextCO2.text = co2.ToString("F2");
+        value_TextHCO3.text = hco3.ToString("F2");
+        value_TextpH.text = ph.ToString("F2");
+        
+        
 
-        //reset the sliders
-        foreach (ABGToolSliderScript s in helpSliders)
-        {
-            s.Reset();
-        }
+        
     }
 
 
 
     /// <summary>
     /// Return the answer the player provided
-    /// called by an outside script
+    /// called by an outside script to figure out what the player answered.
     /// </summary>
     /// <returns></returns>
     public string CheckAnswer_RespiratoryMetabolic()
@@ -159,49 +200,55 @@ public class ABGToolManagerScript : MonoBehaviour {
 
 
     /// <summary>
-    /// Allow other script to set the answer
+    /// Allow other script to set the answer. Return a 1 if it was correct, 0 if it was wrong.
     /// </summary>
     /// <param name="correct"></param>
     /// <param name="ans"></param>
-    public void SetAnswer_RespiratoryMetabolic(bool correct, string ans)
+    public int SetAnswer_RespiratoryMetabolic(bool correct, string ans)
     {
         textanswer_RespiratoryMetabolic.text = ans;
         Debug.Log("The answer for RespMet was " + ans);
         if (correct)
         {
             imganswer_RespiratoryMetabolic.color = col_Right;
+            return 1;
         }
         else
         {
             imganswer_RespiratoryMetabolic.color = col_Wrong;
+            return 0;
         }
     }
 
-    public void SetAnswer_AcidosisAlkalosis(bool correct, string ans)
+    public int SetAnswer_AcidosisAlkalosis(bool correct, string ans)
     {
         textanswer_AcidosisAlkalosis.text = ans;
         Debug.Log("The answer for AcidAlk was " + ans);
         if (correct)
         {
             imganswer_AcidosisAlkalosis.color = col_Right;
+            return 1;
         }
         else
         {
             imganswer_AcidosisAlkalosis.color = col_Wrong;
+            return 0;
         }
     }
 
-    public void SetAnswer_Compensation(bool correct, string ans)
+    public int SetAnswer_Compensation(bool correct, string ans)
     {
         Debug.Log("The answer for Compensation was " + ans);
         textanswer_Compensation.text = ans;
         if (correct)
         {
             imganswer_Compensation.color = col_Right;
+            return 1;
         }
         else
         {
             imganswer_Compensation.color = col_Wrong;
+            return 0;
         }
     }
 
@@ -214,8 +261,26 @@ public class ABGToolManagerScript : MonoBehaviour {
         /// if in practice mode, send the information to functions in this script
         /// 
         /// </summary>
-        /// 
+        
+        //call ryan's manager script here, and possibly input all the information and maybe return a bool.
+        //if ryan chooses to use what's inside this script, such as the setupplaymode function.
+        if (!practiceMode)
+        {
+            SelfDiagnose();
+            //inform manager of the outcome
 
+            //send the integer correctAnswers to the manager
+
+            //probably need to wait for a small period of time or place some kind of confirmation box now.
+            
+            //remove the back panel for now.
+            //backPanel.SetActive(false);
+
+            //become inactive
+            gameObject.SetActive(false);
+        }
+
+        else 
         if (practiceMode)
         {
             SelfDiagnose();
@@ -244,7 +309,8 @@ public class ABGToolManagerScript : MonoBehaviour {
     private string answerRespMet, answerAcidAlk, answerCompensation;
     private float ph, co2, hco3;
 
-  //  private void randomAlive() //randoms a living condition
+    #region old code from last game
+    //  private void randomAlive() //randoms a living condition
   //  {
   //      ph = Random.Range(7.25f, 7.55f);
   //      co2 = Random.Range(25, 55);
@@ -361,18 +427,19 @@ public class ABGToolManagerScript : MonoBehaviour {
   //      }
 
 
-  //  }
-
+    //  }
+    #endregion
     /// <summary>
     /// Used for practice mode
     /// Compare the players answers to the real answers
     /// </summary>
     private void SelfDiagnose()
     {
+        correctAnswers = 0;
+        correctAnswers += SetAnswer_RespiratoryMetabolic( answerRespMet == (CheckAnswer_RespiratoryMetabolic()), answerRespMet);
         
-        SetAnswer_RespiratoryMetabolic( answerRespMet == (CheckAnswer_RespiratoryMetabolic()), answerRespMet);
-        SetAnswer_AcidosisAlkalosis(answerAcidAlk == (CheckAnswer_AcidosisAlkalosis()), answerAcidAlk);
-        SetAnswer_Compensation(answerCompensation == (CheckAnswer_Compensation()), answerCompensation);
+        correctAnswers += SetAnswer_AcidosisAlkalosis(answerAcidAlk == (CheckAnswer_AcidosisAlkalosis()), answerAcidAlk);
+        correctAnswers += SetAnswer_Compensation(answerCompensation == (CheckAnswer_Compensation()), answerCompensation);
     }
 
 
